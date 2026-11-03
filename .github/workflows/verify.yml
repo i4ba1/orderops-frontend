@@ -27,11 +27,11 @@ jobs:
         run: |
           docker build -t orderops-frontend:${{ github.sha }} .
           docker save orderops-frontend:${{ github.sha }} | gzip > orderops-frontend-image.tar.gz
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: orderops-frontend-image
           path: orderops-frontend-image.tar.gz
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: frontend-test-results
