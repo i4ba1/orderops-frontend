@@ -1,0 +1,31 @@
+{
+  "name": "orderops-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "node tools/frontend.mjs dev",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && node tools/frontend.mjs build",
+    "preview": "node tools/frontend.mjs preview",
+    "test": "node --experimental-strip-types --test tests/*.test.ts tests/*.test.mjs",
+    "test:ui": "playwright test --project=ui",
+    "test:e2e": "playwright test --project=real-stack",
+    "demo:record": "node tools/record-demo.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.19.15",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "esbuild": "0.27.7",
+    "typescript": "5.9.3"
+  }
+}

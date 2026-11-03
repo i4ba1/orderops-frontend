@@ -1,0 +1,40 @@
+name: Verify frontend
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-fund
+      - run: npm audit --audit-level=high
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:ui
+      - name: Package frontend image
+        run: |
+          docker build -t orderops-frontend:${{ github.sha }} .
+          docker save orderops-frontend:${{ github.sha }} | gzip > orderops-frontend-image.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orderops-frontend-image
+          path: orderops-frontend-image.tar.gz
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: |
+            playwright-report/
+            test-results/

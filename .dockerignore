@@ -1,0 +1,11 @@
+node_modules
+dist
+.cache
+.vite
+test-results
+playwright-report
+.git
+.github
+.env
+.env.*
+*.tar.gz
