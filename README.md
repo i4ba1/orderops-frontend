@@ -2,6 +2,10 @@
 
 React + TypeScript operations workspace. Production requests always use the same-origin Order Service API; only the isolated browser tests replace HTTP responses.
 
+![Operations overview](docs/screenshots/overview-desktop.png)
+
+![Order detail with fulfillment timeline](docs/screenshots/order-detail.png)
+
 This is an independent project and Git repository inside the `orderops` workspace. The Java backend lives in `../backend`. No frontend build or test requires importing backend source.
 
 ```text
@@ -9,6 +13,26 @@ orderops/
   backend/   # Java services, API contracts, stack orchestration
   frontend/  # This React application, tests, nginx, Docker image
 ```
+
+## Screens
+
+| Login | Overview | Orders |
+| --- | --- | --- |
+| ![Login](docs/screenshots/login.png) | ![Overview](docs/screenshots/overview-desktop.png) | ![Orders](docs/screenshots/orders.png) |
+
+| Inventory | Create order | Mobile overview |
+| --- | --- | --- |
+| ![Inventory](docs/screenshots/inventory.png) | ![Create order](docs/screenshots/create-order.png) | ![Mobile](docs/screenshots/overview-mobile.png) |
+
+![Order detail](docs/screenshots/order-detail.png)
+
+Regenerate these with `ORDEROPS_SCREENSHOT_URL=http://127.0.0.1:8088 node tools/capture-screens.mjs` against a running stack.
+
+## API documentation
+
+Interactive Swagger UI is served by the backend Order Service at `http://localhost:8080/swagger-ui/index.html` (JSON at `/v3/api-docs`). It documents each endpoint the frontend calls, with sample request and response payloads. The authoritative machine-readable contract remains [`contracts/openapi.yaml`](../backend/contracts/openapi.yaml) in the backend repository.
+
+## Development
 
 Requires Node 22.12 or later. From this directory:
 

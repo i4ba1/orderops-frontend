@@ -133,9 +133,9 @@ try {
   await writeFile(resolve(output, 'evidence.json'), JSON.stringify({ recordedAt: new Date().toISOString(), durationSeconds: Math.round((Date.now() - started) / 1000), origin: target.origin, chapters, orders, stockReserved: 3, transport: 'real-stack', claims: ['normal shipment', 'identical replay reserves once', 'manual recovery reaches generation 2', 'carrier timeout reconciles'] }, null, 2));
   complete = true;
 } finally {
-  await context.close();
-  await browser.close();
   const video = page.video();
+  await context.close();
   if (video) await video.saveAs(resolve(output, complete ? 'orderops-demo.webm' : 'orderops-demo-incomplete.webm'));
+  await browser.close();
 }
 console.log(`Completed real-stack recording: ${resolve(output, 'orderops-demo.webm')}`);
